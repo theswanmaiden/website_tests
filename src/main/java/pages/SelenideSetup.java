@@ -18,8 +18,13 @@ import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 public class SelenideSetup {
 
     public static void webDriverSetUp() {
-        WebDriverManager.chromedriver().setup();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+
+        Configuration.browserCapabilities = capabilities;
         Configuration.browser = "chrome";
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub/";
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 10000;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
